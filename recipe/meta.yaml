@@ -13,22 +13,22 @@ source:
 
 build:
   number: 0
-  noarch: python
+  skip: True  # [py<36]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
   entry_points:
     - pathy=pathy.cli:app
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
     - wheel
     - setuptools
   run:
-    - python >=3.6
+    - python
     - smart_open >=5.0.0,<6.0.0
     - typer >=0.3.0,<1.0.0
-    - dataclasses >=0.6,<1.0
+    - dataclasses >=0.6,<1.0  # [py<37]
 
 test:
   imports:
@@ -42,6 +42,7 @@ test:
 about:
   home: https://github.com/justindujardin/pathy
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
   summary: A Path interface for local and cloud bucket storage
   description: |
@@ -51,7 +52,7 @@ about:
     supporting local file-system backed buckets during development and testing.
     It makes converting bucket blobs into local files a snap with optional
     local file caching of blobs.
-  doc_url: https://github.com/justindujardin/pathy
+  doc_url: https://github.com/justindujardin/pathy/blob/master/README.md
   dev_url: https://github.com/justindujardin/pathy
 
 extra:
