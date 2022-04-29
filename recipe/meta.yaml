@@ -13,7 +13,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<36 or s390x]
+  skip: True  # [py<36 or s390x or win32]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
   entry_points:
     - pathy=pathy.cli:app
