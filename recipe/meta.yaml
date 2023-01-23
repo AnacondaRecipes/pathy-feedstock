@@ -1,5 +1,5 @@
 {% set name = "pathy" %}
-{% set version = "0.6.1" %}
+{% set version = "0.10.1" %}
 
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 838624441f799a06b446a657e4ecc9ebc3fdd05234397e044a7c87e8f6e76b1c
+    sha256: 4cd6e71b4cd5ff875cfbb949ad9fa5519d8d1dbe69d5fc1d1b23aa3cb049618b
 
 
 build:
@@ -26,7 +26,7 @@ requirements:
     - setuptools
   run:
     - python
-    - smart_open >=5.0.0,<6.0.0
+    - smart_open >=5.2.1,<6.0.0
     - typer >=0.3.0,<1.0.0
     - dataclasses >=0.6,<1.0  # [py<37]
 
