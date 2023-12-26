@@ -13,7 +13,8 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<36 or s390x]
+  # Python 3.12 isn't compatible
+  skip: True  # [py<36 or py>312 s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - pathy=pathy.cli:app
