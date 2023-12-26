@@ -13,7 +13,7 @@ source:
 
 build:
   number: 0
-  # Python 3.12 isn't compatible
+  # Python 3.12 isn't compatible, see https://github.com/justindujardin/pathy/issues/106
   skip: True  # [py<36 or py>312 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
