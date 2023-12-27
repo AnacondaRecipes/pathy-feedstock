@@ -1,5 +1,5 @@
 {% set name = "pathy" %}
-{% set version = "0.10.1" %}
+{% set version = "0.10.3" %}
 
 
 package:
@@ -8,13 +8,14 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 4cd6e71b4cd5ff875cfbb949ad9fa5519d8d1dbe69d5fc1d1b23aa3cb049618b
+    sha256: b45185d06f9b18c6d3346d3aab881ab96874553f661ee88ccd2e60246e103c22
 
 
 build:
   number: 0
-  skip: True  # [py<36 or s390x]
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  # Python 3.12 isn't compatible, see https://github.com/justindujardin/pathy/issues/106
+  skip: True  # [py<36 or py>=312 or s390x]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - pathy=pathy.cli:app
 
