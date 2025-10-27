@@ -1,5 +1,5 @@
 {% set name = "pathy" %}
-{% set version = "0.10.3" %}
+{% set version = "0.11.0" %}
 
 
 package:
@@ -7,17 +7,16 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: b45185d06f9b18c6d3346d3aab881ab96874553f661ee88ccd2e60246e103c22
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: bb3d0e6b0b8bf76ef4f63c7191e96e0af2ed65c8fdb5fa17488f9c879e63706d
 
 
 build:
   number: 0
-  # Python 3.12 isn't compatible, see https://github.com/justindujardin/pathy/issues/106
-  skip: True  # [py<36 or py>=312 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - pathy=pathy.cli:app
+  skip: True  # [py<38]
 
 requirements:
   host:
@@ -30,15 +29,21 @@ requirements:
     - smart_open >=5.2.1,<7.0.0
     - typer >=0.3.0,<1.0.0
     - dataclasses >=0.6,<1.0  # [py<37]
+    - pathlib-abc ==0.1.1
+  run_constrained:
+    # gcs
+    - google-cloud-storage >=1.26.0,<2.0.0
 
 test:
   imports:
-    - {{ name }}
-  requires:
-    - pip
+    - pathy
   commands:
     - pip check
     - pathy --help
+    - pytest --pyargs pathy._tests.test_pathy
+  requires:
+    - pip
+    - pytest
 
 about:
   home: https://github.com/justindujardin/pathy
