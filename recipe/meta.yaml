@@ -2,7 +2,7 @@
 {% set version = "0.14.2" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -14,21 +14,20 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - pathy=pathy.cli:app
-  skip: true  # [py<38]
+  skip: true  # [py<310]
 
 requirements:
   host:
     - python
     - pip
-    - wheel
-    - setuptools
+    - hatchling
   run:
     - python
-    - smart_open >=5.2.1,<7.0.0
-    - typer >=0.3.0,<1.0.0
-    - dataclasses >=0.6,<1.0  # [py<37]
-    - pathlib-abc ==0.1.1
+    - smart_open >=5.2.1
+    - typer >=0.3.0
+    - pathlib-abc >=0.5.2,<0.6
   run_constrained:
+    # cli - dependency already in run requirements
     # gcs
     - google-cloud-storage >=1.26.0,<2.0.0
 
