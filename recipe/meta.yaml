@@ -1,38 +1,35 @@
 {% set name = "pathy" %}
-{% set version = "0.11.0" %}
-
+{% set version = "0.14.2" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: bb3d0e6b0b8bf76ef4f63c7191e96e0af2ed65c8fdb5fa17488f9c879e63706d
-
+    sha256: 18e5bebae74d6a56e09ead1adc92d8794c1e7a33f45411c080f79ff2a4c31fae
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - pathy=pathy.cli:app
-  skip: True  # [py<38]
+  skip: true  # [py<310]
 
 requirements:
   host:
     - python
     - pip
-    - wheel
-    - setuptools
+    - hatchling
   run:
     - python
-    - smart_open >=5.2.1,<7.0.0
-    - typer >=0.3.0,<1.0.0
-    - dataclasses >=0.6,<1.0  # [py<37]
-    - pathlib-abc ==0.1.1
+    - smart_open >=5.2.1
+    - typer >=0.3.0
+    - pathlib-abc >=0.5.2,<0.6
   run_constrained:
+    # cli - dependency already in run requirements
     # gcs
-    - google-cloud-storage >=1.26.0,<2.0.0
+    - google-cloud-storage <2.0.0
 
 test:
   imports:
